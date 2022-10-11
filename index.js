@@ -1,7 +1,13 @@
 let computerScore = 0;
 let playerScore = 0;
 let ties = 0;
-let rounds = 6;
+let rounds = 5;
+let gameOver = false;
+const rock = document.getElementById('rock');
+const paper = document.getElementById('paper');
+const scissor = document.getElementById('scissor');
+const output = document.getElementById('result');
+
 
 // Generate rock, paper or scissor computer choice
 function getComputerChoice() {
@@ -22,54 +28,75 @@ function playRound(playerSelection, computerSelection) {
     // rock vs. paper
     if(playerSelection === 'rock' && computerSelection === 'paper') {
         computerScore++;
-        return 'You lose. Paper beats rock';
+        output.innerHTML = "You lose. Paper beats rock";
+        output.style.color = "red";
     } else if (playerSelection === 'paper' && computerSelection === 'rock') {
         playerScore++;
-        return 'You win. Paper beats rock';
+        output.innerHTML = "You win. Paper beats rock";
+        output.style.color = "green";
     }
     // paper vs. scissor
     if(playerSelection === 'paper' && computerSelection === 'scissor'){
         computerScore++;
-        return 'You lose. scissor beats paper';
+        output.innerHTML = "You lose. scissor beats paper";
+        output.style.color = "red";
     } else if (playerSelection === 'scissor' && computerSelection === 'paper') {
         playerScore++;
-        return 'You win. Scissor beats paper';
+        output.innerHTML = "You win. Scissor beats paper";
+        output.style.color = "green";
     }
     // scissor vs. rock
     if(playerSelection === 'scissor' && computerSelection === 'rock') {
         computerScore++;
-        return 'You lose. Rock beats scissor';
+        output.innerHTML = "You lose. Rock beats scissor";
+        output.style.color = "red";
     } else if (playerSelection === 'rock' && computerSelection === 'scissor') {
         playerScore++;
-        return 'You win. Rock beats scissor';
+        output.innerHTML = "You win. Rock beats scissor";
+        output.style.color = "green";
     }
     if (playerSelection === computerSelection){
         ties++;
-        return 'Tie';
-    }
-    // adding another round if input is invalid
-    if(playerSelection !== 'rock' || playerSelection !== 'paper' || playerSelection !== 'scissor') {
-        rounds++;
-        return 'Incorrect input'
+        output.innerHTML = "Tie";
+        output.style.color = "orange";
     }
 }
 
-function game() {
-    // loop through desired rounds
-    for(let i = 1; i < rounds; i++) {
-        let playerSelection = prompt().toLowerCase();
-        const computerSelection = getComputerChoice();
-        console.log(playRound(playerSelection, computerSelection));
-    }
+function game(string) {
+    let playerSelection = string;
+    const computerSelection = getComputerChoice();
+    (playRound(playerSelection, computerSelection));
 
     // printing the score
-    if(playerScore < computerScore) {
-        console.log(`You lose. - Player: ${playerScore} wins - Computer: ${computerScore} wins - ${ties} ties.`);
-    } else if (playerScore > computerScore) {
-        console.log(`You win. - Player: ${playerScore} wins - Computer: ${computerScore} wins - ${ties} ties.`);
-    } else {
-        console.log(`It is a tie. - Player: ${playerScore} wins - Computer: ${computerScore} wins - ${ties} ties.`);
+    if(ties + playerScore + computerScore == rounds) {
+        if(playerScore < computerScore) {
+            output.innerHTML = `You lose. - Player: ${playerScore} wins - Computer: ${computerScore} wins - ${ties} ties.`;
+            output.style.color = "red";
+            playerScore = 0;
+            computerScore = 0;
+            ties = 0;
+        } else if (playerScore > computerScore) {
+            output.innerHTML = `You win. - Player: ${playerScore} wins - Computer: ${computerScore} wins - ${ties} ties.`;
+            output.style.color = "green";
+            playerScore = 0;
+            computerScore = 0;
+            ties = 0;
+        } else {
+            output.innerHTML = `It is a tie. - Player: ${playerScore} wins - Computer: ${computerScore} wins - ${ties} ties.`;
+            output.style.color = "orange";
+            playerScore = 0;
+            computerScore = 0;
+            ties = 0;
+        }
     }
 }
 
-game();
+rock.addEventListener('click', () => {
+    game('rock');
+});
+paper.addEventListener('click', () => {
+    game('paper');
+});
+scissor.addEventListener('click', () => {
+    game('scissor');
+});
