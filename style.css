@@ -1,0 +1,50 @@
+.footer {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+a {
+    align-items: center;
+    display: flex;
+    margin: auto;
+    justify-content: space-between;
+    text-decoration: none;
+    font-size: large;
+    text-align: center;
+}
+
+.site-content {
+    flex: 1;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 0;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+}
+
+img {
+    width: 200px;
+    height: auto;
+    padding: 20px;
+}
+
+.result {
+    display: flex;
+    justify-content: center;
+    font-size: x-large;
+    font-weight: bold;
+}
